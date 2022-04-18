@@ -1,0 +1,70 @@
+
+Generate Fibonacci series of length 20.
+From that series, filter the Prime numbers.
+For that Prime numbers, generate factorials individually.
+In those factorials, print only odd numbers.
+
+
+
+
+package com.mrprk;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class AssignmentLevel2 {
+	public static boolean CheckPrime(int numberToCheck) {
+		int remainder;
+		for (int i = 2; i <= numberToCheck / 2; i++) {
+			remainder = numberToCheck % i;
+			if (remainder == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static int FactorialCalculate(int number) {
+		int fact = 1;
+		for (int i = 1; i <= number; i++) {
+			fact = fact * i;
+		}
+		return fact; 
+	}
+
+	public static void main(String[] args) {
+		boolean isPrime = true;
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		ArrayList<Integer> primeNumbers = new ArrayList<Integer>();
+		HashMap<Integer, Integer> factResult = new HashMap<Integer, Integer>();
+		int n1 = 0;
+		int n2 = 1;
+		int n3;
+		int count = 20;
+		arr.add(n1);
+		arr.add(n2);
+		for (int i = 2; i <= count; i++) {
+			n3 = n1 + n2;
+			arr.add(n3);
+			isPrime = CheckPrime(n3);
+			if (isPrime && n3 != 1) {
+				primeNumbers.add(n3);
+				int resOfFactOfPrime = FactorialCalculate(n3);
+				factResult.put(n3, resOfFactOfPrime);
+			}
+			n1 = n2;
+			n2 = n3;
+		}
+		System.out.println("Fibonacci series (length 10) " + arr);
+		System.out.println("prime numbers are :" + primeNumbers);
+		for (Map.Entry<Integer, Integer> set : factResult.entrySet()) {
+			System.out.println("Factorial of " + set.getKey() + " is " + set.getValue());
+		}
+
+		System.out.println("Question 4 :- In those factorials, print only odd numbers : ");
+		System.out.println(
+				"above 2 (ex : 3=1x2x3, 4=1x2x3x4, .... 9=1x2x3x4x5x6x7x8x9) all factorial will be Even number so there is no odd number");
+	}
+
+}
